@@ -1,10 +1,11 @@
+import Waves from './components/Waves'
 import './Landing.css'
 
 function Landing() {
   return (
-    <header>
-
-    </header>
+    <>
+      <Waves />
+    </>
   )
 }
 
