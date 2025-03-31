@@ -1,0 +1,26 @@
+.content.type-1 form svg {
+  border-color: var(--blue);
+  fill: var(--blue);
+}
+
+.content.type-2 form svg {
+  border-color: var(--orange);
+  fill: var(--orange);
+}
+
+.content.type-3 form svg {
+  border-color: var(--green);
+  fill: var(--green);
+}
+
+.content.type-1 form button.submit {
+  background: var(--blue);
+}
+
+.content.type-2 form button.submit {
+  background: var(--orange);
+}
+
+.content.type-3 form button.submit {
+  background: var(--green);
+}

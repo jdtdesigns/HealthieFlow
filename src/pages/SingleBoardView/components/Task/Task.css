@@ -1,0 +1,59 @@
+.task {
+  border: 4px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  cursor: pointer;
+  border-left: 8px solid #999;
+  background: #fff;
+}
+
+.task:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.task.status-1,
+.active-task .task.status-1 {
+  border-left-color: var(--blue);
+}
+
+.task.status-1.hover-top {
+  border-top: 4px solid var(--blue);
+}
+
+.task.status-1.hover-bottom {
+  border-bottom: 4px solid var(--blue);
+}
+
+.task.status-2,
+.active-task .task.status-2 {
+  border-left-color: var(--orange);
+}
+
+.task-status-3,
+.active-task .task.status-3 {
+  border-left-color: var(--green);
+}
+
+.task>*:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.task h4 {
+  color: #444;
+}
+
+.task p {
+  font-weight: 300;
+  color: #444;
+}
+
+.task p.date {
+  font-size: .85rem;
+  margin-top: 7px;
+  color: #555;
+}
+
+.task[aria-pressed="true"] {
+  opacity: 0;
+}
