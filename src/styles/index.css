@@ -93,8 +93,10 @@ main>h1 {
 
 
 /* RESPONSIVE STYLES */
-@media (min-width: 1900px) {
-  main {
+@media (min-width: 2800px) {
+
+  main,
+  footer.main-footer {
     border-right: 15px solid var(--dark-green);
     border-left: 15px solid var(--dark-green);
   }
