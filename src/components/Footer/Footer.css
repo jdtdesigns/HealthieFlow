@@ -32,6 +32,6 @@ footer .rick-surprise {
   position: absolute;
   right: 300px;
   width: 170px;
-  transform: rotate(10deg) translateY(-50px);
+  transform: rotate(10deg) translateY(-40px);
   transition: 3s forwards;
 }
