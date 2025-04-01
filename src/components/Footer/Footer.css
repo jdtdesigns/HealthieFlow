@@ -11,11 +11,11 @@ footer.main-footer {
 footer.main-footer p {
   color: #eee;
   font-size: 1.2rem;
-  min-width: 150px;
+  min-width: 200px;
 }
 
-footer.main-footer>div:not(:last-child) {
-  margin-bottom: 10px;
+footer.main-footer div:not(:last-child) {
+  margin-bottom: 15px;
 }
 
 footer.main-footer svg {

@@ -82,9 +82,6 @@ export class DB {
     return await db.get('tasks', task_id)
   }
 
-  // static async getTasksByBoardId() {
-
-  // }
 
   static async getTaskById(id: number) {
     const db = await this.getDB()
@@ -121,23 +118,3 @@ export class DB {
     console.log('Task deleted!')
   }
 }
-
-
-
-
-
-// static async getAllTasks() {
-//   const db = await this.getDB()
-
-//   const tasks: Task[] = await db.getAll('tasks')
-
-//   return tasks
-// }
-
-// static async getTasksByStatus(status: number) {
-//   const db = await this.getDB()
-
-//   const tasks = await db.getAllFromIndex('tasks', 'status', status)
-
-//   return tasks
-// }
