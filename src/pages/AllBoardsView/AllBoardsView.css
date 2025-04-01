@@ -1,5 +1,5 @@
 main.boards {
-  background: linear-gradient(to bottom, var(--med-green), var(--green));
+  background: linear-gradient(to bottom, var(--med-green), #44be97);
 }
 
 header.all-boards-header {

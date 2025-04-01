@@ -2,7 +2,7 @@ footer.main-footer {
   padding: 60px 15% 0;
   background: var(--med-green);
   background: linear-gradient(to top, var(--med-green), var(--green));
-  border-top: 10px solid var(--med-green);
+  border-top: 2px solid var(--med-green);
   overflow-y: hidden;
   position: relative;
   min-height: 250px;
