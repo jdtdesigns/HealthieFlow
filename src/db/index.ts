@@ -4,6 +4,9 @@ import dayjs from 'dayjs'
 import { Task } from '../pages/types/Task'
 import { Board } from '../pages/types/Board'
 
+/* 
+* A Tool class that provides easy to use methods to store and update the board/task data
+*/
 export class DB {
   static async getDB() {
     const db = await openDB('fittask_db', 1, {
@@ -11,6 +14,7 @@ export class DB {
         await db.createObjectStore('boards', { keyPath: 'id', autoIncrement: true })
         const task_store = await db.createObjectStore('tasks', { keyPath: 'id', autoIncrement: true })
 
+        // Create indexes for the board fields that are used for sorting and pulling
         await task_store.createIndex('board_id', 'board_id')
         await task_store.createIndex('status', 'status')
         await task_store.createIndex('board_status', ['board_id', 'status'])
@@ -22,6 +26,9 @@ export class DB {
     return db
   }
 
+  /**
+   * Retreives all the boards
+   */
   static async getAllBoards() {
     const db = await this.getDB()
 
@@ -30,6 +37,9 @@ export class DB {
     return boards
   }
 
+  /**
+   * Gets a board by it's ID and also attaches the board's tasks
+   */
   static async getBoardById(board_id: number) {
     const db = await this.getDB()
 
@@ -45,6 +55,9 @@ export class DB {
     return { board, tasks }
   }
 
+  /**
+   * Creates a board and sets the default column names
+   */
   static async createBoard(data: Board) {
     const db = await this.getDB()
 
@@ -57,12 +70,19 @@ export class DB {
     return board_id
   }
 
+  /**
+   * Handles updating a board's column names
+   * This is used by the sidebar menu in the UI
+   */
   static async updateBoardColumnNames(updated_board: Board) {
     const db = await this.getDB()
 
     await db.put('boards', updated_board)
   }
 
+  /**
+   * Adds a task and sets the task's order by checking the amount of tasks stored to a baord
+   */
   static async addTask(board_id: number, data: Task) {
     const db = await this.getDB()
 
@@ -70,7 +90,7 @@ export class DB {
     board.taskCount = board.taskCount + 1
     await db.put('boards', board)
 
-    // Get all tasks by their board id
+    // Get all tasks by their board id to determine the task order
     const boardTasks = await db.getAllFromIndex('tasks', 'board_id', board_id)
 
     const task_id = await db.add('tasks', {
@@ -85,6 +105,9 @@ export class DB {
   }
 
 
+  /**
+   * Retreives a task by it's ID
+   */
   static async getTaskById(id: number) {
     const db = await this.getDB()
 
@@ -93,7 +116,9 @@ export class DB {
     return task
   }
 
-
+  /**
+   * Updates a task's status - The status represents the column that the task will be placed in
+   */
   static async updateTaskStatus(task_id: number, new_status: number) {
     const db = await this.getDB()
 
@@ -103,6 +128,9 @@ export class DB {
     await db.put('tasks', task)
   }
 
+  /**
+   * Handles updating a task's order in the column
+   */
   static async updateTaskOrder(task_id: number, new_order: number) {
     const db = await this.getDB()
 

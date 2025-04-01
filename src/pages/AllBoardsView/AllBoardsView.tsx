@@ -10,6 +10,9 @@ import CreateBoardModal from './components/CreateBoardModal'
 import AllBoardsHeader from './components/AllBoardsHeader'
 import { AddIcon } from './assets/Icons'
 
+/**
+ * Shows all the boards and provides placeholder buttons for quick board creation
+ */
 function AllBoardsView() {
   const { state, setState } = useStore()!
   const [boards, setBoards] = useState<Board[]>([])
@@ -44,6 +47,7 @@ function AllBoardsView() {
               <NavLink key={board.id} to={`/board/${board.id}`}>
                 <article className="column align-center">
                   <h3>{board.name}</h3>
+                  {/* Displays the amount of tasks that are attached to the board */}
                   <p>Monitoring <span className={`count ${board.taskCount && !board.taskCount ? 'success' : ''}`}>{board.taskCount}</span> task{board.taskCount ? board.taskCount > 1 ? 's' : '' : 's'}</p>
                 </article>
               </NavLink>
