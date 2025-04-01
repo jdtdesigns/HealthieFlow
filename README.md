@@ -67,7 +67,7 @@ pnpm lint: Runs ESLint to check for code quality issues.
 CSS: Custom styles for components and layouts.
 Responsive Design: Media queries for mobile and desktop views.
 
-# # Features in Detail
+## Features in Detail
 
 ### Drag-and-Drop Task Management
 HealthieFlow uses @dnd-kit to provide a seamless drag-and-drop experience. Users can:
