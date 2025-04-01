@@ -35,6 +35,7 @@ export class DB {
 
     const board = await db.get('boards', board_id)
 
+    // Loop over board status types and sort tasks by their status and finally order them
     const tasks = await Promise.all([1, 2, 3].map(async (status) => {
       const task_data = await db.getAllFromIndex('tasks', 'board_status', [board_id, status])
       return task_data.sort((a, b) => a.order - b.order)
@@ -69,6 +70,7 @@ export class DB {
     board.taskCount = board.taskCount + 1
     await db.put('boards', board)
 
+    // Get all tasks by their board id
     const boardTasks = await db.getAllFromIndex('tasks', 'board_id', board_id)
 
     const task_id = await db.add('tasks', {
@@ -108,13 +110,5 @@ export class DB {
     task.order = new_order
 
     await db.put('tasks', task)
-  }
-
-  static async deleteTask(taskId: number) {
-    const db = await this.getDB()
-
-    await db.delete('tasks', taskId)
-
-    console.log('Task deleted!')
   }
 }

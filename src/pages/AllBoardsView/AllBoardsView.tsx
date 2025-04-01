@@ -49,6 +49,7 @@ function AllBoardsView() {
               </NavLink>
             ))}
 
+            {/* Generate some placeholder boards */}
             {boards.length < 6 && (
               [...Array(8 - boards.length)].map((_, index) => (
                 <article onClick={showCreateBoardModal} key={index} className="placeholder column align-center">

@@ -29,6 +29,12 @@ interface BoardData {
 }
 
 
+/**
+ * Shows a single Board.
+ * It handles the display of the drag/drop columns
+ * for reordering and moving tasks between columns.
+ *
+ */
 function SingleBoardView() {
   const { board_id } = useParams()
   const navigate = useNavigate()
@@ -49,10 +55,13 @@ function SingleBoardView() {
         .then(boardData => {
           if (!boardData.board) return navigate('/')
 
+          // Store basic board data
           setBoard({ ...boardData.board })
 
+          // Generate the column data using the column names stored in the DB
           const column_data = boardData.board.column_names.map((name: string, index: number) => ({
             column_title: name,
+            // Use the index to grab the corresponding tasks for the column
             tasks: boardData.tasks[index]
           }))
 
@@ -70,6 +79,7 @@ function SingleBoardView() {
     }))
   }
 
+  // Basic function to show conffetti that times out
   const launchConfetti = () => {
     setShowConfetti(true)
 
@@ -78,7 +88,10 @@ function SingleBoardView() {
     }, 15 * 1000)
   }
 
-
+  /**
+   * Handles the dragging of elements over a task or column
+   * It generates the border effects on hovered over tasks 
+   */
   const handleDragOver = (event: DragOverEvent) => {
     const { over, active } = event
 
@@ -140,16 +153,22 @@ function SingleBoardView() {
     }
   }
 
+  /**
+   * Handles the logic for when a user picks up a tasks.
+   * It generates a 'virtual' task that can be moved around
+   */
   const handleDragStart = async (event: DragStartEvent) => {
     const { active } = event
 
     const active_task_value = active.id as string
     const dragged_task = await DB.getTaskById(parseInt(active_task_value.split('-')[2]))
 
-
     setActiveTask({ ...dragged_task })
   }
 
+  /**
+   * Handles the logic for sorting tasks and for dropping tasks into other columns 
+   */
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event
 
@@ -158,9 +177,6 @@ function SingleBoardView() {
     const dragged_value = active.id as string
     const over_value = over.id as string
     const dragged_task_id = parseInt(dragged_value.split('-')[2])
-
-    // document.querySelectorAll('.board-column')
-    //   .forEach(col => col.classList.remove('hover'))
 
 
     // Task dropped over another task
@@ -261,6 +277,7 @@ function SingleBoardView() {
     columns_copy[dragged_column_index] = old_column
     columns_copy[over_column_index] = target_column
 
+    // If a task is dropped on the Done column show confetti
     if (over_column_index === 2) {
       launchConfetti()
     }
