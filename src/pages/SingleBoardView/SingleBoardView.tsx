@@ -57,7 +57,7 @@ function SingleBoardView() {
           }))
 
           setColumns(column_data)
-        });
+        })
 
     }
   }, [board_id])
@@ -75,7 +75,7 @@ function SingleBoardView() {
 
     setTimeout(() => {
       setShowConfetti(false)
-    }, 15 * 1000);
+    }, 15 * 1000)
   }
 
 
