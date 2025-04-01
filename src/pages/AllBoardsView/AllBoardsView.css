@@ -1,36 +1,110 @@
+main.boards {
+  background: linear-gradient(to bottom, var(--med-green), var(--green));
+}
+
+header.all-boards-header {
+  padding: 20px 5%;
+}
+
+header.all-boards-header h3 {
+  color: #eee;
+}
+
+header.all-boards-header button {
+  padding: 8px 25px;
+  border-radius: 30px;
+  background: none;
+  border: 2px solid #eee;
+  color: #eee;
+  font-size: 1.1rem;
+  transition: all .3s;
+}
+
+header.all-boards-header button:hover {
+  background: var(--green);
+  color: #444;
+  border-color: var(--green);
+}
+
+header.all-boards-header button svg {
+  fill: #eee;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  transition: fill .3s;
+}
+
+header.all-boards-header button:hover svg {
+  fill: #444;
+}
+
 p.loading,
 p.no-boards {
   padding: 25px 5%;
   font-size: 1.4rem;
-  color: #555;
+  color: #eee;
+}
+
+.boards-content-header {
+  color: #eee;
+  margin-bottom: 35px;
 }
 
 .board-container {
   padding: 25px 5%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px 5%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px 5%;
 }
 
 .board-container article {
-  border: 2px solid var(--dark-blue);
+  border-top: 6px solid var(--dark-green);
   border-radius: 5px;
-  padding: 35px;
-  border-bottom: 8px solid var(--dark-blue);
+  padding: 65px 0;
   transition: all .3s;
+  min-height: 210px;
+  background: linear-gradient(to bottom, #6fdbb8, var(--med-green));
 }
 
 .board-container article:hover {
-  background: #f0f0f0;
+  background: #209991;
+}
+
+.board-container article.placeholder {
+  background: none;
+  border: 2px dashed #ddd;
+  cursor: pointer;
+}
+
+.board-container article.placeholder:hover {
+  border: 2px solid #eee;
+  color: #999;
+}
+
+.board-container article.placeholder svg {
+  fill: #ddd;
+  width: 55px;
+  height: 55px;
+  margin-top: 5px;
+  transition: fill .3s;
+}
+
+.board-container article.placeholder:hover svg {
+  fill: #eee;
 }
 
 .board-container article h3 {
   margin-bottom: 8px;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
+  color: #eee;
+}
+
+.board-container article p {
+  color: #eee;
 }
 
 .board-container article span.count {
-  background: var(--orange);
+  background: var(--green);
   padding: 1px 5px;
-  color: #fff;
+  color: #555;
 }

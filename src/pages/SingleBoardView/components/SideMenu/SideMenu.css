@@ -1,0 +1,62 @@
+.side-menu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  min-width: 250px;
+  background: var(--dark-green);
+  transform: translateX(110%);
+  transition: transform .4s;
+  padding: 25px;
+  border-left: 6px solid #17a38f;
+}
+
+.side-menu.show {
+  transform: translateX(0);
+}
+
+.side-menu button {
+  border: none !important;
+}
+
+.side-menu .close-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  transition: all .3s;
+  transform-origin: center;
+}
+
+.side-menu .close-btn:hover {
+  transform: rotate(90deg);
+}
+
+.side-menu .close-btn svg {
+  width: 35px;
+  height: 35px;
+  fill: #eee;
+}
+
+
+.side-menu form h2 {
+  color: var(--green);
+  margin: 45px 0 25px;
+}
+
+.side-menu form label {
+  color: #ddd;
+  margin-bottom: 2px;
+}
+
+.side-menu form input {
+  padding: 9px 20px;
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+.side-menu form button {
+  background: var(--green);
+  color: #777;
+  font-size: 1.2rem;
+  margin-top: 5px;
+}

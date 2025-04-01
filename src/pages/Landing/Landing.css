@@ -1,4 +1,126 @@
+.landing header {
+  background: #37c7B7;
+  padding: 25px 5%;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.landing header .logo {
+  color: #eee;
+}
+
+.landing .hero {
+  background: linear-gradient(to bottom, #37c7B7, var(--dark-green));
+  padding: 0 5%;
+}
+
+.landing .hero-text h1 {
+  font-size: 4.2rem;
+  text-transform: uppercase;
+  color: #eee;
+  margin-bottom: 15px;
+}
+
+.landing .hero-text p {
+  color: #eee;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.landing .hero-text a {
+  color: var(--green);
+  padding: 15px 65px;
+  border: 2px solid var(--green);
+  border-radius: 30px;
+  margin-top: 35px;
+  font-size: 1.3rem;
+  box-shadow: 0 0 3px var(--green);
+  text-shadow: 0 0 3px var(--green);
+  transition: all .3s;
+}
+
+.landing .hero-text a:hover {
+  color: #777;
+  background: var(--green);
+  box-shadow: 0 0 7px var(--green);
+}
+
+.landing .hero-image {
+  width: 60%;
+}
+
 .waves {
   width: 100%;
   height: 300px;
+}
+
+.landing .details {
+  padding: 35px 0;
+}
+
+.landing .details article {
+  padding: 150px 5%;
+}
+
+.landing .details article:nth-child(odd) {
+  background: linear-gradient(to bottom, var(--green), #32baae);
+  border-radius: 50%/100px 30px;
+  margin-bottom: 100px;
+}
+
+.landing .details article:nth-child(even) {
+  position: relative;
+}
+
+.landing .details article:nth-child(even):after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 150%;
+  height: 100%;
+  z-index: -100;
+  background: linear-gradient(to bottom, #32baae, var(--green));
+  border-radius: 30px 200%/700px;
+}
+
+.landing .details article .text-content {
+  background: radial-gradient(650% 80%, var(--med-green), var(--dark-green));
+  border-radius: 30px;
+  padding: 60px 20px;
+  box-shadow: 0 0 8px var(--green), inset 2px 3px 2px rgba(0, 0, 0, .6);
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+.landing .details article h2 {
+  font-size: 1.9rem;
+  color: #eee;
+  margin-bottom: 10px;
+}
+
+.landing .details article p {
+  color: #eee;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  max-width: 60%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.landing .details article p:after {
+  content: '';
+  position: absolute;
+  bottom: -70px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 80%;
+  height: 6px;
+  border-radius: 50px;
+  background: var(--green);
+  box-shadow: inset 1px 2px 2px rgba(0, 0, 0, .3);
+
 }

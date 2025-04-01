@@ -35,7 +35,11 @@ export class DB {
 
     const board = await db.get('boards', board_id)
 
-    const tasks = await Promise.all([1, 2, 3].map(async (status) => await db.getAllFromIndex('tasks', 'board_status', [board_id, status])))
+    const tasks = await Promise.all([1, 2, 3].map(async (status) => {
+      const task_data = await db.getAllFromIndex('tasks', 'board_status', [board_id, status])
+      return task_data.sort((a, b) => a.order - b.order)
+    }))
+
 
     return { board, tasks }
   }
@@ -45,10 +49,17 @@ export class DB {
 
     const board_id = await db.add('boards', {
       ...data,
-      taskCount: 0
+      taskCount: 0,
+      column_names: ['Todo', 'Doing', 'Done']
     })
 
     return board_id
+  }
+
+  static async updateBoardColumnNames(updated_board: Board) {
+    const db = await this.getDB()
+
+    await db.put('boards', updated_board)
   }
 
   static async addTask(board_id: number, data: Task) {
@@ -58,15 +69,22 @@ export class DB {
     board.taskCount = board.taskCount + 1
     await db.put('boards', board)
 
+    const boardTasks = await db.getAllFromIndex('tasks', 'board_id', board_id)
+
     const task_id = await db.add('tasks', {
       ...data,
       board_id,
       status: data.status,
+      order: boardTasks.length - 1,
       createdOn: dayjs().format('MM-DD-YYYY')
     })
 
     return await db.get('tasks', task_id)
   }
+
+  // static async getTasksByBoardId() {
+
+  // }
 
   static async getTaskById(id: number) {
     const db = await this.getDB()
@@ -77,12 +95,22 @@ export class DB {
   }
 
 
-  static async updateTaskStatus(taskId: number, newStatus: number) {
+  static async updateTaskStatus(task_id: number, new_status: number) {
     const db = await this.getDB()
 
-    await db.put('tasks', { status: newStatus }, taskId)
+    const task = await this.getTaskById(task_id)
+    task.status = new_status
 
-    console.log('Task updated!')
+    await db.put('tasks', task)
+  }
+
+  static async updateTaskOrder(task_id: number, new_order: number) {
+    const db = await this.getDB()
+
+    const task = await this.getTaskById(task_id)
+    task.order = new_order
+
+    await db.put('tasks', task)
   }
 
   static async deleteTask(taskId: number) {
@@ -93,6 +121,8 @@ export class DB {
     console.log('Task deleted!')
   }
 }
+
+
 
 
 

@@ -19,6 +19,9 @@ import AddTaskModal from './components/AddTaskModal'
 import Column from './components/Column'
 import { Task as TaskData } from '../types/Task'
 import Task from './components/Task'
+import SingleBoardHeader from './components/SingleBoardHeader'
+import SideMenu from './components/SideMenu'
+import Confetti from './components/Confetti/'
 
 interface BoardData {
   id: number;
@@ -35,6 +38,8 @@ function SingleBoardView() {
   const [column_index, setColumnIndex] = useState<number>(0)
   const [activeTask, setActiveTask] = useState<null | TaskData>(null)
   const previousHoveredTask = useRef<HTMLElement | null>(null)
+  const [showSideMenu, setShowSideMenu] = useState<boolean>(false)
+  const [showConfetti, setShowConfetti] = useState<boolean>(false)
 
   useEffect(() => {
     if (board_id) {
@@ -46,7 +51,7 @@ function SingleBoardView() {
 
           setBoard({ ...boardData.board })
 
-          const column_data = state.column_names.map((name: string, index: number) => ({
+          const column_data = boardData.board.column_names.map((name: string, index: number) => ({
             column_title: name,
             tasks: boardData.tasks[index]
           }))
@@ -64,6 +69,15 @@ function SingleBoardView() {
       showAddTaskModal: true
     }))
   }
+
+  const launchConfetti = () => {
+    setShowConfetti(true)
+
+    setTimeout(() => {
+      setShowConfetti(false)
+    }, 15 * 1000);
+  }
+
 
   const handleDragOver = (event: DragOverEvent) => {
     const { over, active } = event
@@ -114,11 +128,12 @@ function SingleBoardView() {
           }
         }
 
-
+        // Track the previously hovered element
         previousHoveredTask.current = hovered_task as HTMLElement
       }
     } else {
-      // If no task is hovered, clear the hover effects from the previous task
+      // If no task is hovered over, clear the hover effects from the previous task
+
       if (previousHoveredTask.current) {
         previousHoveredTask.current.classList.remove('hover-top', 'hover-bottom')
       }
@@ -135,21 +150,28 @@ function SingleBoardView() {
     setActiveTask({ ...dragged_task })
   }
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event
 
     if (!over) return
 
     const dragged_value = active.id as string
     const over_value = over.id as string
+    const dragged_task_id = parseInt(dragged_value.split('-')[2])
+
+    // document.querySelectorAll('.board-column')
+    //   .forEach(col => col.classList.remove('hover'))
 
 
     // Task dropped over another task
     if (!over_value.includes('c')) {
-      const dragged_column_index = parseInt(dragged_value.split('-')[0])
-      const dragged_task_index = parseInt(dragged_value.split('-')[1])
-      const over_column_index = parseInt(over_value.split('-')[0])
-      const over_task_index = parseInt(over_value.split('-')[1])
+      const dragged_data = dragged_value.split('-')
+      const over_data = over_value.split('-')
+      const dragged_column_index = parseInt(dragged_data[0])
+      const dragged_task_index = parseInt(dragged_data[1])
+      const over_column_index = parseInt(over_data[0])
+      const over_task_index = parseInt(over_data[1])
+      const over_task_id = parseInt(over_data[2])
 
       // Task was dropped into the same column
       if (dragged_column_index === over_column_index) {
@@ -160,6 +182,25 @@ function SingleBoardView() {
         const columns_copy = [...columns]
         columns_copy[dragged_column_index].tasks = reordered_tasks
 
+        const task_el = document.querySelector(`.task[data-id="${dragged_task_id}"]`)
+        if (task_el) {
+          task_el.classList = `task status-${over_column_index + 1}`
+        }
+
+        // Update the both task's orders in the database
+        const dragged_task = target_column.tasks.find(task => task.id === dragged_task_id)
+        const over_task = target_column.tasks.find(task => task.id === over_task_id)
+
+        if (dragged_task) {
+          dragged_task.order = over_task_index
+          await DB.updateTaskOrder(dragged_task_id, over_task_index)
+        }
+        ``
+        if (over_task) {
+          over_task.order = dragged_task_index
+          await DB.updateTaskOrder(over_task_id, dragged_task_index)
+        }
+
         setColumns([...columns_copy])
       } else {
         // Task was dropped into another column over a task
@@ -167,22 +208,32 @@ function SingleBoardView() {
         const target_column = { ...columns[over_column_index] }
 
         const [task] = old_column.tasks.splice(dragged_task_index, 1)
+        task.status = over_column_index + 1
         target_column.tasks.push(task)
 
         const reordered_tasks = arrayMove(target_column.tasks, dragged_task_index, over_task_index)
+        const new_index = reordered_tasks.findIndex((task: TaskData) => task.id === dragged_task_id)
 
         columns[dragged_column_index].tasks = reordered_tasks
+
+        // Update the task's order and status in the database
+        await DB.updateTaskStatus(dragged_task_id, over_column_index + 1)
+        await DB.updateTaskOrder(dragged_task_id, new_index)
 
         const columns_copy = [...columns]
         columns_copy[dragged_column_index] = old_column
         columns_copy[over_column_index] = target_column
+
+        if (over_column_index === 2) {
+          launchConfetti()
+        }
 
         setColumns([...columns_copy])
       }
       return
     }
 
-    // Task was dropped onto a column
+    /* Handle dropping task into column */
     const dragged_column_index = parseInt(dragged_value.split('-')[0])
     const dragged_task_index = parseInt(dragged_value.split('-')[1])
     const over_column_index = parseInt(over_value[1])
@@ -198,18 +249,35 @@ function SingleBoardView() {
     const [task] = old_column.tasks.splice(dragged_task_index, 1)
     target_column.tasks.push(task)
 
+    const new_task_index = target_column.tasks.length - 1
+    // Update the task's order and status in the database
+    await DB.updateTaskOrder(dragged_task_id, new_task_index)
+    await DB.updateTaskStatus(dragged_task_id, over_column_index + 1)
+
+    task.status = over_column_index + 1
+    task.order = new_task_index
+
     const columns_copy = [...columns]
     columns_copy[dragged_column_index] = old_column
     columns_copy[over_column_index] = target_column
+
+    if (over_column_index === 2) {
+      launchConfetti()
+    }
 
     setColumns([...columns_copy])
   }
 
   return (
-    <main>
-      <NavLink to="/boards" className="back-link">Go Back</NavLink>
+    <main className="single-board">
+      <SingleBoardHeader setShowSideMenu={setShowSideMenu} />
 
-      <h1 className="text-center">{board?.name}</h1>
+      {showConfetti && <Confetti />}
+
+      <h1 className="text-center single-header-text">
+        <NavLink to="/boards" className="back-link">Go Back</NavLink>
+        <span>{board?.name}</span>
+      </h1>
 
       <div className="column-container">
         <DndContext
@@ -241,6 +309,14 @@ function SingleBoardView() {
           column_index={column_index}
           columns={columns}
           setColumns={setColumns} />}
+
+      {board &&
+        <SideMenu
+          setColumns={setColumns}
+          columns={columns}
+          board={board}
+          showSideMenu={showSideMenu}
+          setShowSideMenu={setShowSideMenu} />}
     </main>
   )
 }

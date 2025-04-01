@@ -2,14 +2,13 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { Board } from '../pages/types/Board'
 
 import { DB } from '../db'
-import { getColumnNames } from './helpers'
 
 interface StoreState {
   boards: Board[];
   mode: string;
   showCreateBoardModal: boolean;
   showAddTaskModal: boolean;
-  column_names: string[]
+  modalError: string;
 }
 
 interface StoreContextData {
@@ -24,7 +23,7 @@ const initialState: StoreState = {
   mode: 'dark',
   showCreateBoardModal: false,
   showAddTaskModal: false,
-  column_names: getColumnNames()
+  modalError: ''
 }
 
 export function StoreProvider({ children }: React.PropsWithChildren<{}>) {

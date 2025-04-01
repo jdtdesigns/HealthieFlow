@@ -1,8 +1,11 @@
+import { Character } from './Character';
+
 export interface Task {
   id?: number;
   title: string;
-  body: string;
+  character: Character;
   status: number;
+  order?: number;
   group_id?: number;
   createdOn?: string;
   task_index?: number;

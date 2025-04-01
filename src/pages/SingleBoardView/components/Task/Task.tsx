@@ -6,7 +6,7 @@ import { CSS } from '@dnd-kit/utilities';
 function Task({
   id,
   title,
-  body,
+  character,
   createdOn,
   status,
   task_index,
@@ -22,16 +22,21 @@ function Task({
   return (
     <article
       data-id={id}
-      data-column-index={column_index}
-      data-task-index={task_index}
       ref={setNodeRef}
       {...attributes}
       {...listeners}
       style={dragStyles}
       className={`task status-${status}`}>
-      <h4>{title}</h4>
-      <p>{body}</p>
-      <p className="date">• Added On: {createdOn}</p>
+      <div className="row align-center">
+        <div className="image">
+          <img src={character?.image} alt="Character Image" />
+        </div>
+        <div className="text">
+          <h4>{title}</h4>
+          <p className="assigned">{character?.name}</p>
+          <p className="date">{createdOn}</p>
+        </div>
+      </div>
     </article>
   )
 }

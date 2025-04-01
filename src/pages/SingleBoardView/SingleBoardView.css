@@ -1,15 +1,51 @@
-main {
+main.single-board {
+  background: radial-gradient(40% 20%, var(--dark-green), var(--med-green))
+}
+
+.single-board-header {
+  padding: 25px 5%;
+}
+
+.single-board-header h3 {
+  color: #eee;
+}
+
+
+.single-board-header button {
+  background: none;
+  border: none;
+}
+
+.single-board-header svg {
+  width: 40px;
+  height: 40px;
+  fill: #eee;
+  transition: all .4s;
+  ;
+}
+
+.single-board-header svg:hover {
+  transform: rotate(90deg);
+}
+
+.single-header-text {
   position: relative;
 }
 
-a.back-link {
-  position: absolute;
-  top: 0;
-  left: 5%;
+.single-header-text span {
+  color: #eee;
+}
+
+.single-header-text a.back-link {
   color: #444;
-  border: 1px solid #444;
+  position: absolute;
+  left: 5%;
+  top: 0;
+  border: 1px solid #eee;
   border-radius: 4px;
   padding: 7px 13px;
+  font-size: 1rem;
+  color: #eee;
 }
 
 .column-container {
@@ -17,5 +53,5 @@ a.back-link {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5%;
-  padding: 0 10%;
+  padding: 0 5%;
 }

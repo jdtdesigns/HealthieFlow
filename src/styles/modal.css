@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
 
@@ -26,8 +26,65 @@
 .modal .content {
   position: relative;
   z-index: 100;
-  background: #fff;
-  padding: 2% 5%;
+  background: rgba(0, 190, 159, 0.9);
+  padding: 4% 5% 6%;
   border-radius: 8px;
-  border-bottom: 4px solid #ddd;
+  border: 10px solid var(--med-green);
+  border-bottom: 5px solid #ddd;
+}
+
+.modal .content form svg {
+  fill: #eee;
+  border-color: #eee;
+  width: 45px;
+  height: 45px;
+}
+
+.modal .content form h4 {
+  color: #eee;
+}
+
+.modal .content form h4:after {
+  background: #eee;
+}
+
+.modal .content .modal-error {
+  color: #a80003;
+  padding: 5px 0;
+  border-radius: 5px;
+  margin: 7px 0;
+  font-size: 1.025rem;
+}
+
+.modal .content form label {
+  font-size: 1.1rem;
+  color: #dedede;
+}
+
+.modal .content form input {
+  padding: 15px 25px;
+  font-size: 1rem;
+}
+
+.modal .content form input::placeholder {
+  color: #bbb;
+}
+
+.modal .content form button {
+  font-size: 1.1rem;
+  margin: 4px 0;
+  transition: all .3s;
+}
+
+.modal .content form button.submit {
+  color: #888;
+}
+
+.modal .content form button.submit:hover {
+  background: #34daa7;
+  color: #fff;
+}
+
+.modal .content form button.cancel:hover {
+  background: #6a6a6a;
 }

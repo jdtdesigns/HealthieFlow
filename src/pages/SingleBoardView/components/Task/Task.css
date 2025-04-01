@@ -1,11 +1,12 @@
 .task {
-  border: 4px solid #ddd;
+  border: 2px solid #ccc;
   border-radius: 5px;
   padding: 20px;
   position: relative;
   cursor: pointer;
   border-left: 8px solid #999;
-  background: #fff;
+  background: var(--med-green);
+  user-select: none;
 }
 
 .task:not(:last-child) {
@@ -14,15 +15,15 @@
 
 .task.status-1,
 .active-task .task.status-1 {
-  border-left-color: var(--blue);
+  border-left-color: var(--dark-green);
 }
 
 .task.status-1.hover-top {
-  border-top: 4px solid var(--blue);
+  border-top: 4px solid var(--dark-green);
 }
 
 .task.status-1.hover-bottom {
-  border-bottom: 4px solid var(--blue);
+  border-bottom: 4px solid var(--dark-green);
 }
 
 .task.status-2,
@@ -30,28 +31,52 @@
   border-left-color: var(--orange);
 }
 
-.task-status-3,
+.task.status-2.hover-top {
+  border-top: 4px solid var(--orange);
+}
+
+.task.status-2.hover-bottom {
+  border-bottom: 4px solid var(--orange);
+}
+
+.task.status-3,
 .active-task .task.status-3 {
   border-left-color: var(--green);
+}
+
+.task.status-3.hover-top {
+  border-top: 4px solid var(--green);
+}
+
+.task.status-3.hover-bottom {
+  border-bottom: 4px solid var(--green);
 }
 
 .task>*:not(:last-child) {
   margin-bottom: 5px;
 }
 
-.task h4 {
-  color: #444;
+.task .image {
+  width: 50px;
+  border: 2px solid var(--green);
+  border-radius: 4px;
+  margin-right: 15px;
 }
 
-.task p {
-  font-weight: 300;
-  color: #444;
+.task h4 {
+  color: #eee;
+  margin-bottom: 5px;
+}
+
+.task .assigned {
+  color: #eee;
+  font-size: .8rem;
 }
 
 .task p.date {
-  font-size: .85rem;
+  font-size: .75rem;
   margin-top: 7px;
-  color: #555;
+  color: #ddd;
 }
 
 .task[aria-pressed="true"] {

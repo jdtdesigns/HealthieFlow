@@ -1,5 +1,5 @@
 .board-column {
-  background: #eee;
+  background: rgba(73, 219, 168, 0.7);
   border-radius: 5px;
   min-height: 300px;
 }
@@ -8,11 +8,11 @@
   padding: 18px 0;
   color: #fff;
   border-radius: 5px 5px 0 0;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 }
 
 .board-column.type-1>h3 {
-  background: var(--blue);
+  background: var(--dark-green);
 }
 
 .board-column.type-2>h3 {
@@ -20,44 +20,52 @@
 }
 
 .board-column.type-3>h3 {
-  background: var(--green);
+  background: #60e5b5;
+  ;
 }
 
 .task-container {
-  padding: 0 45px;
+  padding: 20px 45px 35px;
   flex: 1;
 }
 
 .task-container .spacer {
-  flex: 1;
-  min-height: 50px;
-  border: 1px dashed #ccc;
+  min-height: 90px;
+  border: 1px dashed #ddd;
 }
 
 .task-container .spacer p {
   font-size: .9rem;
   font-weight: 300;
-  color: #aaa;
+  color: #d9d9d9;
 }
 
 .task-container p.no-tasks {
-  color: #555;
+  color: #676767;
   margin-bottom: 15px;
 }
 
 .board-column .add-task-btn {
   margin-top: auto;
   border: none;
-  padding: 30px 0;
+  border-bottom: 4px solid #23837e;
+  padding: 23px 0;
+  background: linear-gradient(to bottom, var(--dark-green), var(--med-green));
+  transition: all 0.3s;
+}
+
+.board-column .add-task-btn:hover {
+  background: linear-gradient(to bottom, var(--dark-green), #258a85);
 }
 
 .board-column .add-task-btn svg {
-  height: 18px;
-  width: 18px;
-  fill: #444;
+  height: 25px;
+  width: 25px;
+  fill: var(--green);
   margin-right: 5px;
 }
 
 .board-column .add-task-btn span {
-  color: #444;
+  color: var(--green);
+  font-size: .9rem;
 }
