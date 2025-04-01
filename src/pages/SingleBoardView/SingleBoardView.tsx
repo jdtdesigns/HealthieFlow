@@ -184,7 +184,7 @@ function SingleBoardView() {
 
         const task_el = document.querySelector(`.task[data-id="${dragged_task_id}"]`)
         if (task_el) {
-          task_el.classList = `task status-${over_column_index + 1}`
+          task_el.setAttribute('class', `task status-${over_column_index + 1}`)
         }
 
         // Update the both task's orders in the database
