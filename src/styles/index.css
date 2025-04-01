@@ -23,7 +23,7 @@ body,
 
 body {
   overflow-x: hidden;
-  max-width: 1900px;
+  max-width: 2800px;
   margin: 0 auto;
   background: linear-gradient(var(--dark-green), var(--green));
 }
@@ -93,7 +93,7 @@ main>h1 {
 
 
 /* RESPONSIVE STYLES */
-@media (min-width: 2300px) {
+@media (min-width: 2800px) {
 
   main,
   footer.main-footer {
