@@ -24,6 +24,7 @@ body,
 body {
   overflow-x: hidden;
   max-width: 2800px;
+  min-width: 380px;
   margin: 0 auto;
   background: linear-gradient(var(--dark-green), var(--green));
 }
@@ -115,6 +116,16 @@ main>h1 {
 @media (max-width: 1150px) {
   .board-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .board-container article {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 500px) {
+  .board-container {
+    grid-template-columns: 1fr;
   }
 }
 
