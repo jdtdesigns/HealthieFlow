@@ -46,10 +46,10 @@ Ensure you have the following installed:
 ### Scripts
 The following scripts are available in the package.json:
 
-pnpm dev: Starts the development server.
-pnpm build: Builds the project for production.
-pnpm preview: Previews the production build.
-pnpm lint: Runs ESLint to check for code quality issues.
+- ```pnpm dev```: Starts the development server.
+- ```pnpm build```: Builds the project for production.
+- ```pnpm preview```: Previews the production build.
+- ```pnpm lint```: Runs ESLint to check for code quality issues.
 
 ### Technologies Used
 
